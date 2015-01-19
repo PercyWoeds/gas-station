@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Number:</strong>
+  <%= @tank.number %>
+</p>
+
+<p>
+  <strong>Volume:</strong>
+  <%= @tank.volume %>
+</p>
+
+<p>
+  <strong>Filled:</strong>
+  <%= @tank.filled %>
+</p>
+
+<p>
+  <strong>Gasoline:</strong>
+  <%= @tank.gasoline_id %>
+</p>
+
+<%= link_to 'Edit', edit_tank_path(@tank) %> |
+<%= link_to 'Back', tanks_path %>

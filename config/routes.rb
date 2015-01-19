@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   resources :tanks do 
     member do 
       get 'add_gas'
-      put 'fill'
+      patch 'fill'
     end
   end 
 

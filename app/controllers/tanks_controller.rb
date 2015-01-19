@@ -24,7 +24,7 @@ class TanksController < ApplicationController
   # POST /tanks
   # POST /tanks.json
   def create
-    @tank = Tank.new(new_tank_params)
+    @tank = Tank.new(tank_params)
 
     respond_to do |format|
       if @tank.save
@@ -41,7 +41,7 @@ class TanksController < ApplicationController
   # PATCH/PUT /tanks/1.json
   def update
     respond_to do |format|
-      if @tank.update(new_tank_params)
+      if @tank.update(tank_params)
         format.html { redirect_to @tank, notice: 'Tank info was successfully updated.' }
         format.json { render :show, status: :ok, location: @tank }
       else
@@ -53,18 +53,33 @@ class TanksController < ApplicationController
 
   # GET /tanks/1/add_gas
   def add_gas
-    @filling = true
+    @gasolines = Gasoline.options_for_select
+    redirect_to gasolines_path, notice: 'Currently no gas added to fill tank with.' if @gasolines.empty?
   end
 
-  # PATCH/PUT /tanks/1
-  # PATCH/PUT /tanks/1.json
+  # PUT /tanks/1
+  # PUT /tanks/1.json
   def fill
+    # if tank is filled, before changing gasoline ask if user wants to flush tank
+    @gas = Gasoline.find(params[:tank][:gasoline_id])
+    if @gas != @tank.gasoline && !@tank.empty? 
+      redirect_to :back, notice: "Can't add different gas when tank is not empty" 
+      return
+    end
+    # prohibit from overflowing tank
+    new_fill = params[:tank][:filled].to_f.abs
+    if new_fill > @tank.empty_space
+      redirect_to :back, notice: "Can't fill in more than #{@tank.empty_space} liters" 
+      return
+    end
     respond_to do |format|
-      if @tank.update(fill_tank_params)
+      @tank.gasoline = @gas
+      new_amount = @tank.filled + new_fill
+      if @tank.update(filled: new_amount)
         format.html { redirect_to @tank, notice: 'Tank was successfully filled with gas.' }
         format.json { render :show, status: :ok, location: @tank }
       else
-        format.html { render :edit }
+        format.html { render :add_gas }
         format.json { render json: @tank.errors, status: :unprocessable_entity }
       end
     end
@@ -87,11 +102,7 @@ class TanksController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def new_tank_params
-      params.require(:tank).permit(:number, :volume)
-    end
-
-    def fill_tank_params
-      params.require(:tank).permit(:filled, :gasoline_id)
+    def tank_params
+      params.require(:tank).permit(:number, :volume, :filled, :gasoline_id)
     end
 end

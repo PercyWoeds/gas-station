@@ -1,4 +1,4 @@
-<%= form_for(@tank) do |f| %>
+<%= form_for(@tank, url: fill_tank_path) do |f| %>
   <% if @tank.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@tank.errors.count, "error") %> prohibited this tank from being saved:</h2>
@@ -11,13 +11,14 @@
     </div>
   <% end %>
 
+  <p><%= @tank.max_liters %> liters max</p>
   <div class="field">
-    <%= f.label :number %><br>
-    <%= f.number_field :number %>
+    <%= f.label :filled %><br>
+    <%= f.number_field :filled %>
   </div>
   <div class="field">
-    <%= f.label :volume %><br>
-    <%= f.text_field :volume %>
+    <%= f.label :gasoline_id %><br>
+    <%= f.select :gasoline_id, @gasolines %>
   </div>
   <div class="actions">
     <%= f.submit %>

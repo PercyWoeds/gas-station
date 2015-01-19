@@ -1,6 +1,5 @@
 class Gasoline < ActiveRecord::Base
   has_many :tanks
-  accepts_nested_attributes_for :tanks
 
   def amount 
     total = 0
@@ -8,5 +7,11 @@ class Gasoline < ActiveRecord::Base
       total += tank.filled
     end
     total
+  end
+
+  def self.options_for_select
+    self.all.map do |gas|
+      [ gas.name, gas.id ]
+    end
   end
 end

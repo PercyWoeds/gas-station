@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150119160541) do
+ActiveRecord::Schema.define(version: 20150119215740) do
 
   create_table "gasolines", force: :cascade do |t|
     t.string   "name"
@@ -24,10 +24,10 @@ ActiveRecord::Schema.define(version: 20150119160541) do
   create_table "tanks", force: :cascade do |t|
     t.integer  "number"
     t.float    "volume"
-    t.float    "filled"
+    t.float    "filled",      default: 0.0
     t.integer  "gasoline_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
 end

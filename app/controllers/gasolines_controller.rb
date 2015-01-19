@@ -69,6 +69,6 @@ class GasolinesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def gasoline_params
-      params.require(:gasoline).permit(:name, :class, :price)
+      params.require(:gasoline).permit(:name, :grade, :price)
     end
 end

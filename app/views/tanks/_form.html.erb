@@ -11,22 +11,25 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :number %><br>
-    <%= f.number_field :number %>
-  </div>
-  <div class="field">
-    <%= f.label :volume %><br>
-    <%= f.text_field :volume %>
-  </div>
-  <div class="field">
-    <%= f.label :filled %><br>
-    <%= f.text_field :filled %>
-  </div>
-  <div class="field">
-    <%= f.label :gasoline_id %><br>
-    <%= f.number_field :gasoline_id %>
-  </div>
+  <% if @filling %>
+    <div class="field">
+      <%= f.label :filled %><br>
+      <%= f.number_field :filled %>
+    </div>
+    <div class="field">
+      <%= f.label :gasoline_id %><br>
+      <%= f.text_field :gasoline_id %>
+    </div>
+  <% else %>
+    <div class="field">
+      <%= f.label :number %><br>
+      <%= f.number_field :number %>
+    </div>
+    <div class="field">
+      <%= f.label :volume %><br>
+      <%= f.text_field :volume %>
+  <% end %>
+
   <div class="actions">
     <%= f.submit %>
   </div>

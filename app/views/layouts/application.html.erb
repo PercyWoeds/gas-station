@@ -1,12 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>GasStation</title>
+  <title>Gas Station</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+
+  <div>
+    <a href="/">Gas Station</a>
+    <% if operator_signed_in? %>
+      <ul class="main-menu">
+        <li><%= link_to 'Orders', orders_path %></li>
+        <li><%= link_to 'Gas', gasolines_path %></li>
+        <li><%= link_to 'Tanks', tanks_path %></li>
+        <li><%= link_to 'Sign out', destroy_operator_session_path, :method => :delete %></li>
+      </ul>
+    <% else %>
+      <ul  class="main-menu">
+        <li><%= link_to 'Sign in', new_operator_session_path %></li>
+      <ul>
+    <% end %>
+  </div>
 
   <p class="notice"><%= notice %></p>
   <p class="alert"><%= alert %></p>

@@ -11,10 +11,10 @@
     </div>
   <% end %>
 
-  <p><%= @tank.max_liters %> liters max</p>
+  <p>Filled <%= @tank.filled %> out of <%= @tank.max_liters %> liters</p>
   <div class="field">
-    <%= f.label :filled %><br>
-    <%= f.number_field :filled %>
+    <%= f.label "Add fuel" %> (<%= @tank.empty_space %> liters max)<br>
+    <%= f.number_field :filled, value: 0 %>
   </div>
   <div class="field">
     <%= f.label :gasoline_id %><br>

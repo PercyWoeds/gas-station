@@ -1,5 +1,7 @@
 class Gasoline < ActiveRecord::Base
   has_many :tanks
+  validates_uniqueness_of :name
+  validates :name, :grade, :price, presence: true
 
   def amount 
     total = 0

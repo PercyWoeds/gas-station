@@ -1,23 +1,24 @@
 <p id="notice"><%= notice %></p>
+<h2>Gas "<%= @gasoline.name %>"</h2>
 
 <p>
-  <strong>Name:</strong>
-  <%= @gasoline.name %>
-</p>
-
-<p>
-  <strong>Grade:</strong>
+  <strong>Class:</strong>
   <%= @gasoline.grade %>
 </p>
 
 <p>
   <strong>Price:</strong>
-  <%= @gasoline.price %>
+  <%= @gasoline.price %> UAH
 </p>
 
 <p>
   <strong>Amount:</strong>
-  <%= @gasoline.amount %>
+  <%= @gasoline.amount %> liters
+</p>
+
+<p>
+  <strong>Tanks:</strong>
+  No. <%= @gasoline.tanks.map { |tank| tank.number }.join(', ') %>
 </p>
 
 <%= link_to 'Edit', edit_gasoline_path(@gasoline) %> |

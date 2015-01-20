@@ -4,7 +4,7 @@ class GasolinesController < ApplicationController
   # GET /gasolines
   # GET /gasolines.json
   def index
-    @gasolines = Gasoline.all
+    @gasolines = Gasoline.all.order(:grade)
   end
 
   # GET /gasolines/1
@@ -28,7 +28,7 @@ class GasolinesController < ApplicationController
 
     respond_to do |format|
       if @gasoline.save
-        format.html { redirect_to @gasoline, notice: 'Gasoline was successfully created.' }
+        format.html { redirect_to @gasoline, notice: 'Gasoline was successfully added.' }
         format.json { render :show, status: :created, location: @gasoline }
       else
         format.html { render :new }
@@ -54,9 +54,13 @@ class GasolinesController < ApplicationController
   # DELETE /gasolines/1
   # DELETE /gasolines/1.json
   def destroy
+    if @gasoline.amount > 0
+      redirect_to :back, notice: "Can't remove gas, there are tanks filled with it." 
+      return
+    end
     @gasoline.destroy
     respond_to do |format|
-      format.html { redirect_to gasolines_url, notice: 'Gasoline was successfully destroyed.' }
+      format.html { redirect_to gasolines_url, notice: 'Gasoline was successfully removed.' }
       format.json { head :no_content }
     end
   end

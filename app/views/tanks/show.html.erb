@@ -1,23 +1,19 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Number:</strong>
-  <%= @tank.number %>
-</p>
-
+<h2>Tank No. <%= @tank.number %></h2>
 <p>
   <strong>Volume:</strong>
-  <%= @tank.volume %>
+  <%= @tank.volume %> m3
 </p>
 
 <p>
-  <strong>Filled:</strong>
-  <%= @tank.filled %>
+  <strong>Amount of gas:</strong>
+  <%= @tank.filled %> liters
 </p>
 
 <p>
-  <strong>Gasoline:</strong>
-  <%= @tank.gasoline_id %>
+  <strong>Gas:</strong>
+  <%= !@tank.gasoline.nil? ? @tank.gasoline.name : '-' %>
 </p>
 
 <%= link_to 'Edit', edit_tank_path(@tank) %> |

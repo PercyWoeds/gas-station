@@ -6,8 +6,8 @@
   <thead>
     <tr>
       <th>Number</th>
-      <th>Volume</th>
-      <th>Filled</th>
+      <th>Volume, m3</th>
+      <th>Filled, %</th>
       <th>Gasoline</th>
       <th colspan="4"></th>
     </tr>
@@ -18,8 +18,8 @@
       <tr>
         <td><%= tank.number %></td>
         <td><%= tank.volume %></td>
-        <td><%= tank.filled %></td>
-        <td><%= tank.gasoline_id %></td>
+        <td><%= (tank.filled / tank.max_liters * 100).round(1) %></td>
+        <td><%= !tank.gasoline.nil? ? tank.gasoline.name : '-' %></td>
         <td><%= link_to 'Show', tank %></td>
         <td><%= link_to 'Edit', edit_tank_path(tank) %></td>
         <td><%= link_to 'Fill', add_gas_tank_path(tank) %></td>

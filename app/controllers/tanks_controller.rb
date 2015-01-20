@@ -4,7 +4,7 @@ class TanksController < ApplicationController
   # GET /tanks
   # GET /tanks.json
   def index
-    @tanks = Tank.all
+    @tanks = Tank.all.order(:number)
   end
 
   # GET /tanks/1
@@ -60,13 +60,11 @@ class TanksController < ApplicationController
   # PUT /tanks/1
   # PUT /tanks/1.json
   def fill
-    # if tank is filled, before changing gasoline ask if user wants to flush tank
     @gas = Gasoline.find(params[:tank][:gasoline_id])
     if @gas != @tank.gasoline && !@tank.empty? 
       redirect_to :back, notice: "Can't add different gas when tank is not empty" 
       return
     end
-    # prohibit from overflowing tank
     new_fill = params[:tank][:filled].to_f.abs
     if new_fill > @tank.empty_space
       redirect_to :back, notice: "Can't fill in more than #{@tank.empty_space} liters" 
@@ -88,6 +86,10 @@ class TanksController < ApplicationController
   # DELETE /tanks/1
   # DELETE /tanks/1.json
   def destroy
+    if !@tank.empty?
+      redirect_to :back, notice: "Can't remove tank filled with gas." 
+      return
+    end
     @tank.destroy
     respond_to do |format|
       format.html { redirect_to tanks_url, notice: 'Tank was successfully removed.' }

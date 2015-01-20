@@ -6,4 +6,4 @@ In order to run this app locally, you must run:
 
 * `bundle`
 * `rake db:setup`
-* `rails s
+* `rails s`

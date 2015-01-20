@@ -1,6 +1,6 @@
 class GasolinesController < ApplicationController
   before_action :set_gasoline, only: [:show, :edit, :update, :destroy]
-
+  
   # GET /gasolines
   # GET /gasolines.json
   def index

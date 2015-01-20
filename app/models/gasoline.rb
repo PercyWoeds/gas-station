@@ -11,6 +11,27 @@ class Gasoline < ActiveRecord::Base
     total
   end
 
+  def available?(amount)
+    available = false
+    tanks.each do |tank|
+      if tank.filled > amount
+        available = true 
+        break
+      end
+    end
+    available
+  end
+
+  def biggest_tank
+    tanks.all.order(filled: :desc).first
+  end
+
+  def outpour(amount) 
+    tank = biggest_tank
+    tank.update({filled: tank.filled - amount})
+    tank.save
+  end 
+
   def self.options_for_select
     self.all.map do |gas|
       [ gas.name, gas.id ]

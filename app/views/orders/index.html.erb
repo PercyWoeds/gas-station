@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Orders</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Gas</th>
+      <th>Price, UAH</th>
+      <th>Amount, l</th>
+      <th>Sum, UAH</th>
+      <th>Operator</th>
+      <th>Date</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @orders.each do |order| %>
+      <tr>
+        <td><%= order.gas %></td>
+        <td><%= order.price %></td>
+        <td><%= order.amount %></td>
+        <td><%= order.sum %></td>
+        <td><%= order.operator_id %></td>
+        <td><%= order.created_at.to_formatted_s(:long) %></td>
+        <td><%= link_to 'Show', order %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Checkout', new_order_path %>

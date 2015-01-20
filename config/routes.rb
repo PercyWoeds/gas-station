@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :orders
+
   devise_for :operators
   
   resources :tanks do 
@@ -10,7 +12,7 @@ Rails.application.routes.draw do
 
   resources :gasolines
 
-  root 'gasolines#index'
+  root 'orders#new'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
